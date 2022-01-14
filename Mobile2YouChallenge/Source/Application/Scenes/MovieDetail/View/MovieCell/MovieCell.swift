@@ -60,12 +60,9 @@ class MovieCell: UITableViewCell {
     }
     
     func constraintSubviews() {
-        
-//        NSLayoutConstraint.activate([
-//            contentView.heightAnchor.constraint(equalToConstant: 100)])
         ///movieImage
         NSLayoutConstraint.activate([
-//            movieImage.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+
             movieImage.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
             movieImage.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant:  -10),
             movieImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
@@ -96,7 +93,7 @@ class MovieCell: UITableViewCell {
     
     func configure() {
         title.text = "title"
-        title.numberOfLines = 2
+        title.numberOfLines = 0
         title.textColor = .white
         
         year.text = "year"
