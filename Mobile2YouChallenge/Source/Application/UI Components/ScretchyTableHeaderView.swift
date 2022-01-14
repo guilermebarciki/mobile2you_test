@@ -17,6 +17,13 @@ final class StretchyTableHeaderView: UIView {
         return imageView
     }()
     
+    
+    private let gradientView: GradientView = {
+        let gradientView = GradientView()
+        gradientView.translatesAutoresizingMaskIntoConstraints = false
+        return gradientView
+    }()
+    
     private var imageViewHeight = NSLayoutConstraint()
     private var imageViewBottom = NSLayoutConstraint()
     private var containerView = UIView()
@@ -37,6 +44,7 @@ final class StretchyTableHeaderView: UIView {
     private func createViews() {
         addSubview(containerView)
         containerView.addSubview(imageView)
+        containerView.addSubview(gradientView)
     }
     ///Constraints
     private func setViewConstraints() {
@@ -57,6 +65,14 @@ final class StretchyTableHeaderView: UIView {
         imageViewBottom.isActive = true
         imageViewHeight = imageView.heightAnchor.constraint(equalTo: containerView.heightAnchor)
         imageViewHeight.isActive = true
+        
+        NSLayoutConstraint.activate([
+            gradientView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
+            gradientView.widthAnchor.constraint(equalTo: containerView.widthAnchor),
+            gradientView.heightAnchor.constraint(equalTo: containerView.heightAnchor)
+        ])
+        
+        
     }
     
     /// Notify view of scroll change from container
@@ -68,3 +84,5 @@ final class StretchyTableHeaderView: UIView {
         imageViewHeight.constant = max(offsetY + scrollView.contentInset.top, scrollView.contentInset.top)
     }
 }
+
+

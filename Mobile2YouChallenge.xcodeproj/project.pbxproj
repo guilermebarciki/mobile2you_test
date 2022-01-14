@@ -13,6 +13,14 @@
 		B27600FF27906F7900221ECA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B27600FD27906F7900221ECA /* LaunchScreen.storyboard */; };
 		B276010727906FC700221ECA /* ScretchyTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B276010627906FC700221ECA /* ScretchyTableHeaderView.swift */; };
 		B27601092790928F00221ECA /* MovieDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B27601082790928F00221ECA /* MovieDetailViewController.swift */; };
+		B27601142790BD5D00221ECA /* MovieDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B27601132790BD5D00221ECA /* MovieDetailViewModel.swift */; };
+		B27601162790BD6B00221ECA /* MovieDetailViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B27601152790BD6B00221ECA /* MovieDetailViewModelProtocol.swift */; };
+		B27601182790C06F00221ECA /* MovieDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = B27601172790C06F00221ECA /* MovieDetail.swift */; };
+		B276011A2790C07A00221ECA /* SimilarMovieDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = B27601192790C07A00221ECA /* SimilarMovieDetail.swift */; };
+		B276011D2790C25800221ECA /* ApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B276011C2790C25800221ECA /* ApiService.swift */; };
+		B27601202790D70A00221ECA /* MovieCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B276011F2790D70A00221ECA /* MovieCell.swift */; };
+		B27601252791B78E00221ECA /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B27601242791B78E00221ECA /* GradientView.swift */; };
+		B27601272791C17600221ECA /* HeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B27601262791C17600221ECA /* HeaderCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +32,14 @@
 		B276010027906F7900221ECA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B276010627906FC700221ECA /* ScretchyTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScretchyTableHeaderView.swift; sourceTree = "<group>"; };
 		B27601082790928F00221ECA /* MovieDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailViewController.swift; sourceTree = "<group>"; };
+		B27601132790BD5D00221ECA /* MovieDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailViewModel.swift; sourceTree = "<group>"; };
+		B27601152790BD6B00221ECA /* MovieDetailViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailViewModelProtocol.swift; sourceTree = "<group>"; };
+		B27601172790C06F00221ECA /* MovieDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetail.swift; sourceTree = "<group>"; };
+		B27601192790C07A00221ECA /* SimilarMovieDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimilarMovieDetail.swift; sourceTree = "<group>"; };
+		B276011C2790C25800221ECA /* ApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiService.swift; sourceTree = "<group>"; };
+		B276011F2790D70A00221ECA /* MovieCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCell.swift; sourceTree = "<group>"; };
+		B27601242791B78E00221ECA /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
+		B27601262791C17600221ECA /* HeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +91,8 @@
 		B276010B2790934A00221ECA /* Application */ = {
 			isa = PBXGroup;
 			children = (
+				B27601232791B76B00221ECA /* UI Components */,
+				B276011B2790C24800221ECA /* Service */,
 				B2760112279093A600221ECA /* SceneDelegate */,
 				B27601112790939C00221ECA /* AppDelegate */,
 				B276010C2790936000221ECA /* Scenes */,
@@ -94,6 +112,8 @@
 		B276010D2790936C00221ECA /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				B27601172790C06F00221ECA /* MovieDetail.swift */,
+				B27601192790C07A00221ECA /* SimilarMovieDetail.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -111,8 +131,10 @@
 		B276010F2790938700221ECA /* View */ = {
 			isa = PBXGroup;
 			children = (
+				B27601222791A8BA00221ECA /* New Group */,
+				B27601212791A8AE00221ECA /* HeaderCell */,
+				B276011E2790D6FB00221ECA /* MovieCell */,
 				B27601082790928F00221ECA /* MovieDetailViewController.swift */,
-				B276010627906FC700221ECA /* ScretchyTableHeaderView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -120,6 +142,8 @@
 		B27601102790939200221ECA /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				B27601132790BD5D00221ECA /* MovieDetailViewModel.swift */,
+				B27601152790BD6B00221ECA /* MovieDetailViewModelProtocol.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -137,6 +161,46 @@
 			children = (
 			);
 			path = SceneDelegate;
+			sourceTree = "<group>";
+		};
+		B276011B2790C24800221ECA /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				B276011C2790C25800221ECA /* ApiService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		B276011E2790D6FB00221ECA /* MovieCell */ = {
+			isa = PBXGroup;
+			children = (
+				B276011F2790D70A00221ECA /* MovieCell.swift */,
+			);
+			path = MovieCell;
+			sourceTree = "<group>";
+		};
+		B27601212791A8AE00221ECA /* HeaderCell */ = {
+			isa = PBXGroup;
+			children = (
+				B27601262791C17600221ECA /* HeaderCell.swift */,
+			);
+			path = HeaderCell;
+			sourceTree = "<group>";
+		};
+		B27601222791A8BA00221ECA /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "New Group";
+			sourceTree = "<group>";
+		};
+		B27601232791B76B00221ECA /* UI Components */ = {
+			isa = PBXGroup;
+			children = (
+				B276010627906FC700221ECA /* ScretchyTableHeaderView.swift */,
+				B27601242791B78E00221ECA /* GradientView.swift */,
+			);
+			path = "UI Components";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -210,8 +274,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				B27601092790928F00221ECA /* MovieDetailViewController.swift in Sources */,
+				B27601182790C06F00221ECA /* MovieDetail.swift in Sources */,
+				B27601252791B78E00221ECA /* GradientView.swift in Sources */,
+				B27601142790BD5D00221ECA /* MovieDetailViewModel.swift in Sources */,
+				B27601272791C17600221ECA /* HeaderCell.swift in Sources */,
 				B276010727906FC700221ECA /* ScretchyTableHeaderView.swift in Sources */,
 				B27600F327906F7600221ECA /* AppDelegate.swift in Sources */,
+				B276011D2790C25800221ECA /* ApiService.swift in Sources */,
+				B27601162790BD6B00221ECA /* MovieDetailViewModelProtocol.swift in Sources */,
+				B276011A2790C07A00221ECA /* SimilarMovieDetail.swift in Sources */,
+				B27601202790D70A00221ECA /* MovieCell.swift in Sources */,
 				B27600F527906F7600221ECA /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
