@@ -9,37 +9,47 @@ import Foundation
 import UIKit
 
 class MovieDetailViewController: UIViewController {
-
-    private let tableView: UITableView = {
+    //MARK: - Properties
+    private let tableViewx: UITableView = {
         let tableView = UITableView()
         tableView.register(MovieCell.self, forCellReuseIdentifier: "MovieCell")
         tableView.register(HeaderCell.self, forCellReuseIdentifier: "HeaderCell")
+        tableView.translatesAutoresizingMaskIntoConstraints = false
         
         return tableView
     }()
     
+    private lazy var tableView = MovieDetailView()
+    
+    override func loadView() {
+        
+            view = tableView
+       
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .green
-        view.addSubview(tableView)
-        tableView.delegate = self
-        tableView.dataSource = self
+        
+        tableView.bind(dataSource: self)
         tableView.frame = view.bounds
         
         
+       
+         
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         let header = StretchyTableHeaderView(frame: CGRect(x: 0, y: 0,
                                                            width: view.frame.size.width,
                                                            height: view.frame.size.width))
         header.imageView.image = UIImage(named: "Image")
-        tableView.tableHeaderView = header
-        tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = 150
-        // Do any additional setup after loading the view.
-        
+        tableView.setHeader(header: header)
     }
 }
 
-extension MovieDetailViewController: UITableViewDelegate, UITableViewDataSource {
+extension MovieDetailViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         switch indexPath.row {
@@ -55,7 +65,7 @@ extension MovieDetailViewController: UITableViewDelegate, UITableViewDataSource 
                 fatalError("no cell registered")
             }
            cell.configure()
-           cell.configure()
+           
            return cell
          }
     }
@@ -68,64 +78,14 @@ extension MovieDetailViewController: UITableViewDelegate, UITableViewDataSource 
 
 extension MovieDetailViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        guard let header = tableView.tableHeaderView as? StretchyTableHeaderView else {
+        guard let header = tableView.getHeader() as? StretchyTableHeaderView else {
             return
         }
-        
-        header.scrollViewDidScroll(scrollView: tableView)
+
+        header.scrollViewDidScroll(scrollView: tableView.tableView) //TODO fix that
     }
     
 }
 
+//extension MovieDetailViewController:
 
-final class MovieDetailView: UIView {
-    
-    // MARK: - UI Components
-    
-    private let tableView: UITableView = {
-        let tableView = UITableView()
-        tableView.register(MovieCell.self, forCellReuseIdentifier: "MovieCell")
-        tableView.register(HeaderCell.self, forCellReuseIdentifier: "HeaderCell")
-        return tableView
-    }()
-    
-    // MARK: - Initialization
-    
-    init() {
-        super.init(frame: .zero)
-        addSubviews()
-        constraintSubviews()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    // MARK: - UI Lifecycle
-    
-    func addSubviews() {
-        print("add tableview")
-        addSubview(tableView)
-        
-    }
-    
-    func constraintSubviews() {
-        print("setou constraint")
-        NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: topAnchor),
-            tableView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            tableView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: trailingAnchor)
-        ])
-    }
-    
-    // MARK: - Internal API
-
-    func bind(dataSource: UITableViewDataSource) {
-        tableView.dataSource = dataSource
-    }
-    
-    func reloadData() {
-        tableView.reloadData()
-    }
-}
