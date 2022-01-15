@@ -9,42 +9,14 @@ import Foundation
 import UIKit
 
 class MovieDetailViewController: UIViewController {
-    
 
     private let tableView: UITableView = {
         let tableView = UITableView()
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.register(MovieCell.self, forCellReuseIdentifier: "MovieCell")
+        tableView.register(HeaderCell.self, forCellReuseIdentifier: "HeaderCell")
         
         return tableView
     }()
-    
-    let models = [
-        "sfdsfds",
-        "sfdsfds",
-        "sfdsfds",
-        "sfdsfds",
-        "sfdsfds",
-        "sfdsfds",
-        "sfdsfds",
-        "sfdsfds",
-        "sfdsfds",
-        "sfdsfds",
-        "sfdsfds",
-        "sfdsfds",
-        "sfdsfds",
-        "sfdsfds",
-        "sfdsfds",
-        "sfdsfds",
-        "sfdsfds",
-        "sfdsfds",
-        "sfdsfds",
-        "sfdsfds",
-        "sfdsfds",
-        "sfdsfds",
-        "sfdsfds",
-        "sfdsfds",
-        "sfdsfds"
-    ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,8 +25,7 @@ class MovieDetailViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.frame = view.bounds
-        tableView.register(MovieCell.self, forCellReuseIdentifier: "MovieCell")
-        tableView.register(HeaderCell.self, forCellReuseIdentifier: "HeaderCell")
+        
         
         let header = StretchyTableHeaderView(frame: CGRect(x: 0, y: 0,
                                                            width: view.frame.size.width,
@@ -66,10 +37,6 @@ class MovieDetailViewController: UIViewController {
         // Do any additional setup after loading the view.
         
     }
-    
-   
-    
-    
 }
 
 extension MovieDetailViewController: UITableViewDelegate, UITableViewDataSource {
@@ -91,21 +58,12 @@ extension MovieDetailViewController: UITableViewDelegate, UITableViewDataSource 
            cell.configure()
            return cell
          }
-        
-        
-        
-
-       
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        models.count
+        16
     }
     
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//
-//        100
-//    }
 }
 
 extension MovieDetailViewController: UIScrollViewDelegate {
@@ -117,4 +75,57 @@ extension MovieDetailViewController: UIScrollViewDelegate {
         header.scrollViewDidScroll(scrollView: tableView)
     }
     
+}
+
+
+final class MovieDetailView: UIView {
+    
+    // MARK: - UI Components
+    
+    private let tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.register(MovieCell.self, forCellReuseIdentifier: "MovieCell")
+        tableView.register(HeaderCell.self, forCellReuseIdentifier: "HeaderCell")
+        return tableView
+    }()
+    
+    // MARK: - Initialization
+    
+    init() {
+        super.init(frame: .zero)
+        addSubviews()
+        constraintSubviews()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: - UI Lifecycle
+    
+    func addSubviews() {
+        print("add tableview")
+        addSubview(tableView)
+        
+    }
+    
+    func constraintSubviews() {
+        print("setou constraint")
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: topAnchor),
+            tableView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            tableView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: trailingAnchor)
+        ])
+    }
+    
+    // MARK: - Internal API
+
+    func bind(dataSource: UITableViewDataSource) {
+        tableView.dataSource = dataSource
+    }
+    
+    func reloadData() {
+        tableView.reloadData()
+    }
 }

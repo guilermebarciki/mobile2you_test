@@ -10,17 +10,18 @@ import UIKit
 
 class HeaderCell: UITableViewCell {
     
-    /// UI itens
-    
-    lazy var title: UILabel = {
+    //MARK: - UI itens
+ 
+    ///tittle
+    lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .systemFont(ofSize: 28, weight: .bold)
         
         return label
     }()
-    
-    lazy var likes: UILabel = {
+    ///likesLabel
+    lazy var likesLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .systemFont(ofSize: 16, weight: .regular)
@@ -37,7 +38,7 @@ class HeaderCell: UITableViewCell {
        
     }()
     
-    lazy var views: UILabel = {
+    lazy var viewsLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .systemFont(ofSize: 16, weight: .regular)
@@ -57,23 +58,11 @@ class HeaderCell: UITableViewCell {
     lazy var likeButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        
-        let heartConfig = UIImage.SymbolConfiguration(
-            font: UIFont.preferredFont(forTextStyle: .title1)
-        )
- 
-        if let image = UIImage(systemName: "heart.fill", withConfiguration: heartConfig) {
-            button.setImage(image, for: .normal)
-            
-   
-        }
-        
         button.tintColor = .white
-        
         return button
     }()
 
-    
+    //MARK: - INIT
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         addSubviews()
@@ -85,24 +74,59 @@ class HeaderCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func addSubviews() {
+    //MARK: - PRIVATE METHODS
+    private func addSubviews() {
         contentView.addSubview(likeButton)
-        contentView.addSubview(title)
-        contentView.addSubview(likes)
+        setupLikeButton()
+        contentView.addSubview(titleLabel)
+        contentView.addSubview(likesLabel)
         contentView.addSubview(likesIcon)
-        contentView.addSubview(views)
+        contentView.addSubview(viewsLabel)
         contentView.addSubview(viewsIcon)
-        
+        updateButtonState()
         constraintSubviews()
     }
     
-    func constraintSubviews() {
+    
+    @objc func likeButtonPressed() {
+        print("äpertouuu")
+        
+        likeButton.isSelected = !likeButton.isSelected
+        updateButtonState()
+        
+    }
+    
+    private func setupLikeButton() {
+        likeButton.addTarget(self, action: #selector(likeButtonPressed), for: .touchUpInside)
+        likeButton.isSelected = false
+    }
+    
+    private func updateButtonState() {
+        let heartConfig = UIImage.SymbolConfiguration(
+            font: UIFont.preferredFont(forTextStyle: .title1)
+        )
+        if likeButton.isSelected {
+            if let image = UIImage(systemName: "heart.fill", withConfiguration: heartConfig) {
+                likeButton.setImage(image, for: .normal)
+            }
+            
+        } else {
+            if let image = UIImage(systemName: "heart", withConfiguration: heartConfig) {
+                likeButton.setImage(image, for: .normal)
+            }
+            
+        }
+        
+        
+    }
+    
+    private func constraintSubviews() {
         
        ///title
         NSLayoutConstraint.activate([
-            title.topAnchor.constraint(equalTo: contentView.topAnchor),
-            title.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
-            title.trailingAnchor.constraint(equalTo: likeButton.leadingAnchor)
+            titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
+            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
+            titleLabel.trailingAnchor.constraint(equalTo: likeButton.leadingAnchor)
         ])
         
         ///like Button
@@ -110,57 +134,45 @@ class HeaderCell: UITableViewCell {
             likeButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),
             likeButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
         ])
-        
-        likeButton.imageView?.contentMode = .scaleToFill
-        
 
-        print( "aaaaaaaa \(likeButton.imageView)")
-   
-        
         ///likes
          NSLayoutConstraint.activate([
-            likes.leadingAnchor.constraint(equalTo: likesIcon.trailingAnchor, constant: 5),
-            likes.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant:  -10),
-            likes.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 10)
+            likesLabel.leadingAnchor.constraint(equalTo: likesIcon.trailingAnchor, constant: 5),
+            likesLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant:  -10),
+            likesLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10)
          ])
         /// like icon
         NSLayoutConstraint.activate([
-            likesIcon.centerYAnchor.constraint(equalTo: likes.centerYAnchor),
+            likesIcon.centerYAnchor.constraint(equalTo: likesLabel.centerYAnchor),
             likesIcon.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10)])
-       
-        
-        
+  
         ///views
          NSLayoutConstraint.activate([
-            views.centerYAnchor.constraint(equalTo: likes.centerYAnchor),
-            views.leadingAnchor.constraint(equalTo: viewsIcon.trailingAnchor,constant: 5)
+            viewsLabel.centerYAnchor.constraint(equalTo: likesLabel.centerYAnchor),
+            viewsLabel.leadingAnchor.constraint(equalTo: viewsIcon.trailingAnchor,constant: 5)
          ])
          ///views icon
         NSLayoutConstraint.activate([
-            viewsIcon.centerYAnchor.constraint(equalTo: likes.centerYAnchor),
-            viewsIcon.leadingAnchor.constraint(equalTo: likes.trailingAnchor, constant: 10)])
-        
-      
-       
+            viewsIcon.centerYAnchor.constraint(equalTo: likesLabel.centerYAnchor),
+            viewsIcon.leadingAnchor.constraint(equalTo: likesLabel.trailingAnchor, constant: 10)])
+ 
     }
     
     
     //MARK: - Internal API
     
-    func configure() {
-        title.text = "Piratas do Caribe DAS TREVAS MORTAIS "
-        title.textColor = .white
-        title.numberOfLines = 0
+    public func configure() {
+        titleLabel.text = "Piratas do Caribe DAS TREVAS MORTAIS "
+        titleLabel.textColor = .white
+        titleLabel.numberOfLines = 0
         
+        likesLabel.text = "1.2k Likes"
+        likesLabel.textColor = .white
         
-        
-        
-        
-        likes.text = "1.2k Likes"
-        likes.textColor = .white
-        
-        views.text = "1.3k Views"
-        views.textColor = .white
+        viewsLabel.text = "1.3k Views"
+        viewsLabel.textColor = .white
         
     }
 }
+
+
