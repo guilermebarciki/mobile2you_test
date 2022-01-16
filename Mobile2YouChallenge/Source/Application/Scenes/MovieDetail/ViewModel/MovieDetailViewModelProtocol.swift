@@ -8,12 +8,17 @@
 import Foundation
 
 
-protocol MovieDetailViewModelProtocol {
+protocol MovieDetailViewModelProtocol: AnyObject {
     func loadMovieInfo()
     func loadSimilarMovies()
     func numberOfSections() -> Int
     func numberOfRows() -> Int
-    func transporter(_ indexPath: IndexPath) -> String
+    func similarMovieDetailTransporter(_ indexPath: IndexPath) -> SimilarMovieDetail
+    func movieDetailTransporter(_ indexPath: IndexPath) -> MovieDetail
     func showMovies()
     
+}
+
+protocol MovieDetailViewModelDelegate: AnyObject {
+    func didLoad()
 }

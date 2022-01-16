@@ -16,6 +16,8 @@ class HeaderCell: UITableViewCell {
     lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = .white
+        label.numberOfLines = 0
         label.font = .systemFont(ofSize: 28, weight: .bold)
         
         return label
@@ -24,6 +26,7 @@ class HeaderCell: UITableViewCell {
     lazy var likesLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = .white
         label.font = .systemFont(ofSize: 16, weight: .regular)
         
         return label
@@ -41,6 +44,7 @@ class HeaderCell: UITableViewCell {
     lazy var viewsLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = .white
         label.font = .systemFont(ofSize: 16, weight: .regular)
         
         return label
@@ -161,16 +165,16 @@ class HeaderCell: UITableViewCell {
     
     //MARK: - Internal API
     
-    public func configure() {
-        titleLabel.text = "Piratas do Caribe DAS TREVAS MORTAIS "
-        titleLabel.textColor = .white
-        titleLabel.numberOfLines = 0
+    public func configure(movieDetail: MovieDetail) {
+        titleLabel.text = movieDetail.title
         
-        likesLabel.text = "1.2k Likes"
-        likesLabel.textColor = .white
         
-        viewsLabel.text = "1.3k Views"
-        viewsLabel.textColor = .white
+        
+        likesLabel.text = "\(movieDetail.likes) Likes"
+        
+        
+        viewsLabel.text = "\(movieDetail.views) Views"
+        
         
     }
 }

@@ -20,6 +20,7 @@ class MovieCell: UITableViewCell {
     lazy var title: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = .white
         label.font = .systemFont(ofSize: 20, weight: .medium)
         
         return label
@@ -27,6 +28,7 @@ class MovieCell: UITableViewCell {
     lazy var year: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = .white
         label.font = .systemFont(ofSize: 16, weight: .regular)
         
         return label
@@ -34,6 +36,7 @@ class MovieCell: UITableViewCell {
     lazy var genre: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = .white
         label.font = .systemFont(ofSize: 16, weight: .regular)
         
         return label
@@ -91,15 +94,17 @@ class MovieCell: UITableViewCell {
     
     //MARK: - Internal API
     
-    func configure() {
-        title.text = "title"
+    func configure(similarMovie: SimilarMovieDetail) {
+        
+        var similarMovie = similarMovie
+        
         title.numberOfLines = 0
-        title.textColor = .white
+        title.text = similarMovie.title
         
-        year.text = "year"
-        year.textColor = .white
+        year.text = similarMovie.year
         
-        genre.text = "genre"
-        genre.textColor = .white
+        
+        genre.text = similarMovie.genre
+        
     }
 }

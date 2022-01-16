@@ -31,6 +31,7 @@ final class MovieDetailView: UIView {
         
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 150
+        tableView.backgroundColor = .black
         
     }
     
@@ -58,8 +59,9 @@ final class MovieDetailView: UIView {
     
     // MARK: - Internal API
 
-    func bind(dataSource: UITableViewDataSource) {
+    func bind(dataSource: UITableViewDataSource, delegate: UITableViewDelegate) {
         tableView.dataSource = dataSource
+        tableView.delegate = delegate
     }
     
     func setHeader(header: UIView ) {
@@ -77,3 +79,5 @@ final class MovieDetailView: UIView {
         tableView.reloadData()
     }
 }
+
+

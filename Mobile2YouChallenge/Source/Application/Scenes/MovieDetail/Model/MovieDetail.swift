@@ -8,5 +8,7 @@
 import Foundation
 
 struct MovieDetail: Decodable {
-    
+    let title: String?
+    let likes: String?
+    let views: String?
 }

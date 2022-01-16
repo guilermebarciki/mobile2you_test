@@ -9,16 +9,9 @@ import Foundation
 import UIKit
 
 class MovieDetailViewController: UIViewController {
-    //MARK: - Properties
-    private let tableViewx: UITableView = {
-        let tableView = UITableView()
-        tableView.register(MovieCell.self, forCellReuseIdentifier: "MovieCell")
-        tableView.register(HeaderCell.self, forCellReuseIdentifier: "HeaderCell")
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        
-        return tableView
-    }()
+    //MARK: - Properties  
     
+    private lazy var viewModel = MovieDetailViewModel(delegate: self)
     private lazy var tableView = MovieDetailView()
     
     override func loadView() {
@@ -29,10 +22,12 @@ class MovieDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .green
         
-        tableView.bind(dataSource: self)
+        
+        tableView.bind(dataSource: self, delegate: self)
         tableView.frame = view.bounds
+        viewModel.loadMovieInfo()
+        viewModel.loadSimilarMovies()
         
         
        
@@ -49,7 +44,9 @@ class MovieDetailViewController: UIViewController {
     }
 }
 
-extension MovieDetailViewController: UITableViewDataSource {
+
+//MARK: - TableView DataSource e Delegate
+extension MovieDetailViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         switch indexPath.row {
@@ -57,25 +54,29 @@ extension MovieDetailViewController: UITableViewDataSource {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "HeaderCell") as? HeaderCell else {
                 fatalError("no cell registered")
             }
-           cell.configure()
+            let movieDetail = viewModel.movieDetailTransporter(indexPath)
+           cell.configure(movieDetail: movieDetail)
            return cell
          
          default:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "MovieCell") as? MovieCell else {
                 fatalError("no cell registered")
             }
-           cell.configure()
-           
+            let similarMovie = viewModel.similarMovieDetailTransporter(indexPath)
+            cell.configure(similarMovie:similarMovie)
+            print("similar")
            return cell
          }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        16
+        print(viewModel.numberOfRows())
+        return viewModel.numberOfRows()
+        
     }
     
 }
-
+//MARK: - ScrollView Delegate
 extension MovieDetailViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         guard let header = tableView.getHeader() as? StretchyTableHeaderView else {
@@ -87,5 +88,14 @@ extension MovieDetailViewController: UIScrollViewDelegate {
     
 }
 
-//extension MovieDetailViewController:
+//MARK: - ViewModel Delegate
+extension MovieDetailViewController: MovieDetailViewModelDelegate {
+    func didLoad() {
+        DispatchQueue.main.async { [weak self] in
+            self?.tableView.reloadData()
+        }
+    }
+    
+    
+}
 
