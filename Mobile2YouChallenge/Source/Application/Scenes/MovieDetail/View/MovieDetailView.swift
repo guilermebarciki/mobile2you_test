@@ -18,6 +18,9 @@ final class MovieDetailView: UIView {
         let tableView = UITableView()
         tableView.register(MovieCell.self, forCellReuseIdentifier: "MovieCell")
         tableView.register(HeaderCell.self, forCellReuseIdentifier: "HeaderCell")
+//         tableView.register(MovieCell.self)
+//         tableView.register(HeaderCell.self)
+         
          tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
      }()
@@ -46,6 +49,7 @@ final class MovieDetailView: UIView {
     }
     
     func constraintSubviews() {
+
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: topAnchor),
             tableView.bottomAnchor.constraint(equalTo: bottomAnchor),

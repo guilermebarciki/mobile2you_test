@@ -26,6 +26,7 @@
 		B27601302794E70400221ECA /* Double+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B276012F2794E70400221ECA /* Double+Extensions.swift */; };
 		B27601342794F7F900221ECA /* ApiImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B27601332794F7F900221ECA /* ApiImageView.swift */; };
 		B276013627960E7300221ECA /* MovieService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B276013527960E7300221ECA /* MovieService.swift */; };
+		B2760138279616A600221ECA /* UITableView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2760137279616A600221ECA /* UITableView+Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +51,7 @@
 		B276012F2794E70400221ECA /* Double+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Extensions.swift"; sourceTree = "<group>"; };
 		B27601332794F7F900221ECA /* ApiImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiImageView.swift; sourceTree = "<group>"; };
 		B276013527960E7300221ECA /* MovieService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieService.swift; sourceTree = "<group>"; };
+		B2760137279616A600221ECA /* UITableView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -222,6 +224,7 @@
 			children = (
 				B276012D2794E6F500221ECA /* String+Extensios.swift */,
 				B276012F2794E70400221ECA /* Double+Extensions.swift */,
+				B2760137279616A600221ECA /* UITableView+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -313,6 +316,7 @@
 				B276010727906FC700221ECA /* StretchyTableHeaderView.swift in Sources */,
 				B27600F327906F7600221ECA /* AppDelegate.swift in Sources */,
 				B276012B2792645C00221ECA /* MovieDetailView.swift in Sources */,
+				B2760138279616A600221ECA /* UITableView+Extensions.swift in Sources */,
 				B276011D2790C25800221ECA /* ApiService.swift in Sources */,
 				B27601302794E70400221ECA /* Double+Extensions.swift in Sources */,
 				B27601162790BD6B00221ECA /* MovieDetailViewModelProtocol.swift in Sources */,

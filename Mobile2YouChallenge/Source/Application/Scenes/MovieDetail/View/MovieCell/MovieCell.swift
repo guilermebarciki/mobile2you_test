@@ -13,7 +13,6 @@ class MovieCell: UITableViewCell {
     /// UI itens
     lazy var movieImage: ApiImageView = {
         let image = ApiImageView()
-        image.backgroundColor = .red
         image.translatesAutoresizingMaskIntoConstraints  = false
         return image
     }()

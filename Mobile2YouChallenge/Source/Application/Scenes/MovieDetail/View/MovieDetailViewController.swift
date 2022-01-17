@@ -32,6 +32,7 @@ class MovieDetailViewController: UIViewController {
                                                            height: view.frame.size.width))
         
         header.imageView.donwloadImage(withUrl: "https://image.tmdb.org/t/p/original/6d5XOczc226jECq0LIX0siKtgHR.jpg")
+        print("url image controller: \(viewModel.movieDetail?.posterURL)")
 
         tableView.setHeader(header: header)
         
