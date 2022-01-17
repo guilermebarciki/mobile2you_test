@@ -15,24 +15,15 @@ class MovieDetailViewController: UIViewController {
     private lazy var tableView = MovieDetailView()
     
     override func loadView() {
-        
             view = tableView
-       
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
         tableView.bind(dataSource: self, delegate: self)
         tableView.frame = view.bounds
         viewModel.loadMovieInfo()
         viewModel.loadSimilarMovies()
-        
-        
-       
-         
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -51,8 +42,6 @@ class MovieDetailViewController: UIViewController {
 //MARK: - TableView DataSource e Delegate
 extension MovieDetailViewController: UITableViewDataSource, UITableViewDelegate {
     
-    
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         switch indexPath.row {
@@ -70,15 +59,12 @@ extension MovieDetailViewController: UITableViewDataSource, UITableViewDelegate 
             }
             let similarMovie = viewModel.similarMovieDetailTransporter(indexPath)
             cell.configure(similarMovie: similarMovie, delegate: self)
-            print("similar")
            return cell
          }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print(viewModel.numberOfRows())
-        return viewModel.numberOfRows()
-        
+        viewModel.numberOfRows()
     }
     
 }
@@ -88,23 +74,16 @@ extension MovieDetailViewController: UIScrollViewDelegate {
         guard let header = tableView.getHeader() as? StretchyTableHeaderView else {
             return
         }
-
         header.scrollViewDidScroll(scrollView: tableView.tableView) //TODO fix that
     }
-    
 }
 
 //MARK: - ViewModel Delegate
 extension MovieDetailViewController: MovieDetailViewModelDelegate {
-    
     func didLoad() {
         DispatchQueue.main.async { [weak self] in
             self?.tableView.reloadData()
         }
-        
-        
-    }
-    
-    
+    }    
 }
 

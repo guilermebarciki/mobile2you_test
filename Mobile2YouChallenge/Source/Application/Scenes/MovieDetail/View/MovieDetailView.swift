@@ -42,13 +42,10 @@ final class MovieDetailView: UIView {
     // MARK: - UI Lifecycle
     
     func addSubviews() {
-        print("add tableview")
         addSubview(tableView)
-        
     }
     
     func constraintSubviews() {
-        print("setou constraint")
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: topAnchor),
             tableView.bottomAnchor.constraint(equalTo: bottomAnchor),

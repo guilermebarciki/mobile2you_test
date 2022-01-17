@@ -92,12 +92,10 @@ class HeaderCell: UITableViewCell {
     }
     
     
-    @objc func likeButtonPressed() {
-        print("äpertouuu")
-        
+    @objc
+    private func likeButtonPressed() {
         likeButton.isSelected = !likeButton.isSelected
         updateButtonState()
-        
     }
     
     private func setupLikeButton() {
@@ -118,10 +116,7 @@ class HeaderCell: UITableViewCell {
             if let image = UIImage(systemName: "heart", withConfiguration: heartConfig) {
                 likeButton.setImage(image, for: .normal)
             }
-            
         }
-        
-        
     }
     
     private func constraintSubviews() {
@@ -159,7 +154,6 @@ class HeaderCell: UITableViewCell {
         NSLayoutConstraint.activate([
             viewsIcon.centerYAnchor.constraint(equalTo: likesLabel.centerYAnchor),
             viewsIcon.leadingAnchor.constraint(equalTo: likesLabel.trailingAnchor, constant: 10)])
- 
     }
     
     
@@ -169,8 +163,6 @@ class HeaderCell: UITableViewCell {
         titleLabel.text = movieDetail?.title
         likesLabel.text = "\(movieDetail?.likes ?? 0)K Likes"
         viewsLabel.text = "\(movieDetail?.views ?? 0)K Views"
-        
-        
     }
 }
 

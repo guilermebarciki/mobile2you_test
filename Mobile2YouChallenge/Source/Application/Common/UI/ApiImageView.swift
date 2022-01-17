@@ -45,7 +45,6 @@ class ApiImageView: UIImageView {
                 if let image = UIImage(data: data) {
                     self.imageCache.setObject(image, forKey: NSString(string: urlString))
                     if self.imageUrlString == urlString {
-                        print("image = image")
                         self.image = image
                     }
                 } else {

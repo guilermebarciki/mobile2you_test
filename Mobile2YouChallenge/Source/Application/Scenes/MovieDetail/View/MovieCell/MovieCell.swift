@@ -15,9 +15,6 @@ class MovieCell: UITableViewCell {
         let image = ApiImageView()
         image.backgroundColor = .red
         image.translatesAutoresizingMaskIntoConstraints  = false
-
-        
-        
         return image
     }()
     lazy var title: UILabel = {
@@ -25,7 +22,6 @@ class MovieCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .white
         label.font = .systemFont(ofSize: 20, weight: .medium)
-        
         return label
     }()
     lazy var year: UILabel = {
@@ -33,7 +29,6 @@ class MovieCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .white
         label.font = .systemFont(ofSize: 16, weight: .regular)
-        
         return label
     }()
     lazy var genre: UILabel = {
@@ -41,7 +36,6 @@ class MovieCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = .white
         label.font = .systemFont(ofSize: 16, weight: .regular)
-        
         return label
     }()
     
@@ -59,11 +53,11 @@ class MovieCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-       
+        
         addSubviews()
         constraintSubviews()
         contentView.backgroundColor = .black
-       
+        
     }
     
     required init?(coder: NSCoder) {
@@ -81,7 +75,7 @@ class MovieCell: UITableViewCell {
     func constraintSubviews() {
         ///movieImage
         NSLayoutConstraint.activate([
-
+            
             movieImage.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
             movieImage.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant:  -10),
             movieImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
@@ -114,33 +108,27 @@ class MovieCell: UITableViewCell {
         ])
     }
     
+    override func prepareForReuse() {
+        movieImage.cancel()
+        movieImage.image = nil
+        canLoad = true
+    }
     
     //MARK: - Internal API
     
     func configure(similarMovie: SimilarMovieDetail, delegate: MovieDetailViewModelDelegate) {
-        
-        
-        
         title.numberOfLines = 0
         title.text = similarMovie.title
-        
         year.text = similarMovie.year
-        
-        
         genre.text = similarMovie.genre
-
+        
         if canLoad {
-            print("carregando imagem")
-        if let url = similarMovie.imageURL {
-            movieImage.donwloadImage(withUrl: url)
-            canLoad = false
+            if let url = similarMovie.imageURL {
+                movieImage.donwloadImage(withUrl: url)
+                canLoad = false
+            }
+            else {
+                print("imageUrl invalid") }
         }
-        else {
-            print("imageUrl invalid") }
-        
-        }
-
-
-        
     }
 }

@@ -25,6 +25,7 @@
 		B276012E2794E6F600221ECA /* String+Extensios.swift in Sources */ = {isa = PBXBuildFile; fileRef = B276012D2794E6F500221ECA /* String+Extensios.swift */; };
 		B27601302794E70400221ECA /* Double+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B276012F2794E70400221ECA /* Double+Extensions.swift */; };
 		B27601342794F7F900221ECA /* ApiImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B27601332794F7F900221ECA /* ApiImageView.swift */; };
+		B276013627960E7300221ECA /* MovieService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B276013527960E7300221ECA /* MovieService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +49,7 @@
 		B276012D2794E6F500221ECA /* String+Extensios.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensios.swift"; sourceTree = "<group>"; };
 		B276012F2794E70400221ECA /* Double+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Extensions.swift"; sourceTree = "<group>"; };
 		B27601332794F7F900221ECA /* ApiImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiImageView.swift; sourceTree = "<group>"; };
+		B276013527960E7300221ECA /* MovieService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,6 +134,7 @@
 				B27601102790939200221ECA /* ViewModel */,
 				B276010F2790938700221ECA /* View */,
 				B276010D2790936C00221ECA /* Model */,
+				B276013527960E7300221ECA /* MovieService.swift */,
 			);
 			path = MovieDetail;
 			sourceTree = "<group>";
@@ -313,6 +316,7 @@
 				B276011D2790C25800221ECA /* ApiService.swift in Sources */,
 				B27601302794E70400221ECA /* Double+Extensions.swift in Sources */,
 				B27601162790BD6B00221ECA /* MovieDetailViewModelProtocol.swift in Sources */,
+				B276013627960E7300221ECA /* MovieService.swift in Sources */,
 				B276011A2790C07A00221ECA /* SimilarMovieDetail.swift in Sources */,
 				B276012E2794E6F600221ECA /* String+Extensios.swift in Sources */,
 				B27601202790D70A00221ECA /* MovieCell.swift in Sources */,
