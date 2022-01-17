@@ -22,6 +22,9 @@
 		B27601252791B78E00221ECA /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B27601242791B78E00221ECA /* GradientView.swift */; };
 		B27601272791C17600221ECA /* HeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B27601262791C17600221ECA /* HeaderCell.swift */; };
 		B276012B2792645C00221ECA /* MovieDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B276012A2792645C00221ECA /* MovieDetailView.swift */; };
+		B276012E2794E6F600221ECA /* String+Extensios.swift in Sources */ = {isa = PBXBuildFile; fileRef = B276012D2794E6F500221ECA /* String+Extensios.swift */; };
+		B27601302794E70400221ECA /* Double+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B276012F2794E70400221ECA /* Double+Extensions.swift */; };
+		B27601342794F7F900221ECA /* ApiImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B27601332794F7F900221ECA /* ApiImageView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +45,9 @@
 		B27601242791B78E00221ECA /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		B27601262791C17600221ECA /* HeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderCell.swift; sourceTree = "<group>"; };
 		B276012A2792645C00221ECA /* MovieDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailView.swift; sourceTree = "<group>"; };
+		B276012D2794E6F500221ECA /* String+Extensios.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensios.swift"; sourceTree = "<group>"; };
+		B276012F2794E70400221ECA /* Double+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Extensions.swift"; sourceTree = "<group>"; };
+		B27601332794F7F900221ECA /* ApiImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiImageView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +99,7 @@
 		B276010B2790934A00221ECA /* Application */ = {
 			isa = PBXGroup;
 			children = (
+				B276012C2794E6C200221ECA /* Common */,
 				B27601232791B76B00221ECA /* UI Components */,
 				B276011B2790C24800221ECA /* Service */,
 				B2760112279093A600221ECA /* SceneDelegate */,
@@ -206,6 +213,32 @@
 			path = "UI Components";
 			sourceTree = "<group>";
 		};
+		B276012C2794E6C200221ECA /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				B27601322794F7A200221ECA /* UI */,
+				B27601312794F79700221ECA /* Extensions */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		B27601312794F79700221ECA /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				B276012D2794E6F500221ECA /* String+Extensios.swift */,
+				B276012F2794E70400221ECA /* Double+Extensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		B27601322794F7A200221ECA /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				B27601332794F7F900221ECA /* ApiImageView.swift */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -281,12 +314,15 @@
 				B27601252791B78E00221ECA /* GradientView.swift in Sources */,
 				B27601142790BD5D00221ECA /* MovieDetailViewModel.swift in Sources */,
 				B27601272791C17600221ECA /* HeaderCell.swift in Sources */,
+				B27601342794F7F900221ECA /* ApiImageView.swift in Sources */,
 				B276010727906FC700221ECA /* StretchyTableHeaderView.swift in Sources */,
 				B27600F327906F7600221ECA /* AppDelegate.swift in Sources */,
 				B276012B2792645C00221ECA /* MovieDetailView.swift in Sources */,
 				B276011D2790C25800221ECA /* ApiService.swift in Sources */,
+				B27601302794E70400221ECA /* Double+Extensions.swift in Sources */,
 				B27601162790BD6B00221ECA /* MovieDetailViewModelProtocol.swift in Sources */,
 				B276011A2790C07A00221ECA /* SimilarMovieDetail.swift in Sources */,
+				B276012E2794E6F600221ECA /* String+Extensios.swift in Sources */,
 				B27601202790D70A00221ECA /* MovieCell.swift in Sources */,
 				B27600F527906F7600221ECA /* SceneDelegate.swift in Sources */,
 			);

@@ -7,9 +7,21 @@
 
 import Foundation
 
-struct SimilarMovieDetail: Decodable {
-    let title: String?
-    let year: String?
-    let genre: String?
-    let imageURL: URL?
+struct SimilarMovieDetail {
+    var title: String?
+    var year: String?
+    var genre: String?
+    var imageURL: URL?
 }
+
+struct SimilarMoviesListDTO: Decodable {
+    let results: [SimilarMovieDTO]
+}
+
+struct SimilarMovieDTO: Decodable {
+    let title: String?
+    let release_date: String?
+    let backdrop_path: String?
+    let genre_ids: [Int]
+}
+

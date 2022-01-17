@@ -11,10 +11,11 @@ import UIKit
 class MovieCell: UITableViewCell {
     
     /// UI itens
-    lazy var movieImage: UIImageView = {
-        let image = UIImageView()
+    lazy var movieImage: ApiImageView = {
+        let image = ApiImageView()
         image.backgroundColor = .red
         image.translatesAutoresizingMaskIntoConstraints  = false
+        image.contentMode = .scaleAspectFit
         return image
     }()
     lazy var title: UILabel = {
@@ -96,7 +97,7 @@ class MovieCell: UITableViewCell {
     
     func configure(similarMovie: SimilarMovieDetail) {
         
-        var similarMovie = similarMovie
+        
         
         title.numberOfLines = 0
         title.text = similarMovie.title
@@ -105,6 +106,22 @@ class MovieCell: UITableViewCell {
         
         
         genre.text = similarMovie.genre
+        print("carregando imagem")
+       
+        
+//            movieImage.donwloadImage(withUrl: "https://camo.githubusercontent.com/9c2e0652eaea989f1b63f889c779337f7875554f987b806edba337df002e4fdc/68747470733a2f2f692e6962622e636f2f525456625733592f53696d756c61746f722d53637265656e2d53686f742d692d50686f6e652d31322d323032312d31302d31372d61742d32322d35332d31352e706e67")
+        
+        do{
+        
+        if let url = similarMovie.imageURL {
+            print("url image:   \(url)")
+            movieImage.donwloadImage(withUrl: try String(contentsOf: url))
+        }
+
+        } catch {
+            print("url invalid")
+        }
+
         
     }
 }

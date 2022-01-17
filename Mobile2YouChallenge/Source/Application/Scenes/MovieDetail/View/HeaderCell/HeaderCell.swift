@@ -170,10 +170,10 @@ class HeaderCell: UITableViewCell {
         
         
         
-        likesLabel.text = "\(movieDetail.likes) Likes"
+        likesLabel.text = "\(movieDetail.likes ?? 0)K Likes"
         
         
-        viewsLabel.text = "\(movieDetail.views) Views"
+        viewsLabel.text = "\(movieDetail.views ?? 0)K Views"
         
         
     }

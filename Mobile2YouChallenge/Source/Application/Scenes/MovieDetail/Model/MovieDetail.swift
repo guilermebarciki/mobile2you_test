@@ -7,8 +7,20 @@
 
 import Foundation
 
-struct MovieDetail: Decodable {
+struct MovieDetail {
+    var title: String?
+    var likes: Double?
+    var views: Double?
+    
+}
+
+
+struct MovieDetailDTO: Decodable {
     let title: String?
-    let likes: String?
-    let views: String?
+    let vote_count: Double?
+    let popularity: Double?
+    let release_date: String?
+    let backdrop_path: String?
+    let genre_ids: [Int]
+    
 }
