@@ -15,7 +15,9 @@ class MovieCell: UITableViewCell {
         let image = ApiImageView()
         image.backgroundColor = .red
         image.translatesAutoresizingMaskIntoConstraints  = false
-        image.contentMode = .scaleAspectFit
+
+        image.imageView?.contentMode = .scaleAspectFill
+        
         return image
     }()
     lazy var title: UILabel = {
@@ -43,13 +45,25 @@ class MovieCell: UITableViewCell {
         return label
     }()
     
+    lazy var divisorLine: UIImageView =
+    {
+        let line = UIImageView()
+        line.translatesAutoresizingMaskIntoConstraints = false
+        line.backgroundColor = .systemGray
+        return line
+    }()
+    
+    var canLoad: Bool = true
+    
     /// Init
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+       
         addSubviews()
         constraintSubviews()
         contentView.backgroundColor = .black
+       
     }
     
     required init?(coder: NSCoder) {
@@ -61,6 +75,7 @@ class MovieCell: UITableViewCell {
         contentView.addSubview(title)
         contentView.addSubview(year)
         contentView.addSubview(genre)
+        contentView.addSubview(divisorLine)
     }
     
     func constraintSubviews() {
@@ -90,12 +105,19 @@ class MovieCell: UITableViewCell {
             genre.centerYAnchor.constraint(equalTo: year.centerYAnchor),
             genre.leadingAnchor.constraint(equalTo: year.trailingAnchor, constant: 10)
         ])
+        ///divisorLine
+        NSLayoutConstraint.activate([
+            divisorLine.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            divisorLine.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            divisorLine.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 90),
+            divisorLine.heightAnchor.constraint(equalToConstant:  0.5)
+        ])
     }
     
     
     //MARK: - Internal API
     
-    func configure(similarMovie: SimilarMovieDetail) {
+    func configure(similarMovie: SimilarMovieDetail, delegate: MovieDetailViewModelDelegate) {
         
         
         
@@ -106,21 +128,18 @@ class MovieCell: UITableViewCell {
         
         
         genre.text = similarMovie.genre
-        print("carregando imagem")
-       
-        
-//            movieImage.donwloadImage(withUrl: "https://camo.githubusercontent.com/9c2e0652eaea989f1b63f889c779337f7875554f987b806edba337df002e4fdc/68747470733a2f2f692e6962622e636f2f525456625733592f53696d756c61746f722d53637265656e2d53686f742d692d50686f6e652d31322d323032312d31302d31372d61742d32322d35332d31352e706e67")
-        
-        do{
-        
+
+        if canLoad {
+            print("carregando imagem")
         if let url = similarMovie.imageURL {
-            print("url image:   \(url)")
-            movieImage.donwloadImage(withUrl: try String(contentsOf: url))
+            movieImage.donwloadImage(withUrl: url)
+            canLoad = false
+        }
+        else {
+            print("imageUrl invalid") }
+        
         }
 
-        } catch {
-            print("url invalid")
-        }
 
         
     }

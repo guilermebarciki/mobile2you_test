@@ -8,19 +8,23 @@
 import Foundation
  // key: be5c32db82fc40f21fa05d770dc3bea2
 
+typealias MovieDetailWraperCompletionResult = ((Result<MovieDetailDTO, ApiError>) -> Void)
+typealias SimilarMoviesWraperCompletionResult = ((Result<SimilarMoviesListDTO, ApiError>) -> Void)
+
 enum ApiError: Error {
     case apiError
     case parsing
 }
 
 protocol ApiServiceProtocol {
-    func loadMovieDetail(for url: URL, completion: @escaping (Result<MovieDetailDTO, ApiError>) -> Void) // fazer typelias
+    func loadMovieDetail(for url: URL, completion: @escaping MovieDetailWraperCompletionResult) 
     
-    func loadSimilarMovies(for url: URL, completion: @escaping (Result<SimilarMoviesListDTO, ApiError>) -> Void)
+    func loadSimilarMovies(for url: URL, completion: @escaping SimilarMoviesWraperCompletionResult)
 }
 
 final class ApiService: ApiServiceProtocol {
-    func loadMovieDetail(for url: URL, completion: @escaping (Result<MovieDetailDTO, ApiError>) -> Void) {
+    func loadMovieDetail(for url: URL, completion: @escaping MovieDetailWraperCompletionResult)
+    {
         URLSession.shared.dataTask(with: url) { data, _, error in
             DispatchQueue.main.async {
                 guard let data = data else {
@@ -36,7 +40,7 @@ final class ApiService: ApiServiceProtocol {
         }.resume()
     }
     
-    func loadSimilarMovies(for url: URL, completion: @escaping (Result<SimilarMoviesListDTO, ApiError>) -> Void) {
+    func loadSimilarMovies(for url: URL, completion: @escaping SimilarMoviesWraperCompletionResult) {
         URLSession.shared.dataTask(with: url) { data, _, error in
             DispatchQueue.main.async {
                 guard let data = data else {

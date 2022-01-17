@@ -12,9 +12,13 @@ import UIKit
 class ApiImageView: UIImageView {
     
     let imageCache = NSCache<NSString, UIImage>()
+    var imageView: UIImageView?
     var imageUrlString: String?
+   
     
     func donwloadImage(withUrl urlString: String) {
+       
+        self.imageView?.translatesAutoresizingMaskIntoConstraints = false
         imageUrlString = urlString
         
         let url = URL(string: urlString)
@@ -41,8 +45,13 @@ class ApiImageView: UIImageView {
                 if let image = UIImage(data: data) {
                     self?.imageCache.setObject(image, forKey: NSString(string: urlString))
                     if self?.imageUrlString == urlString {
+                        print("image = image")
                         self?.image = image
+
+                        
                     }
+                } else {
+                    print("delegate error")
                 }
             }
         }.resume()

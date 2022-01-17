@@ -11,7 +11,7 @@ struct SimilarMovieDetail {
     var title: String?
     var year: String?
     var genre: String?
-    var imageURL: URL?
+    var imageURL: String?
 }
 
 struct SimilarMoviesListDTO: Decodable {
@@ -21,7 +21,7 @@ struct SimilarMoviesListDTO: Decodable {
 struct SimilarMovieDTO: Decodable {
     let title: String?
     let release_date: String?
-    let backdrop_path: String?
+    let poster_path: String?
     let genre_ids: [Int]
 }
 

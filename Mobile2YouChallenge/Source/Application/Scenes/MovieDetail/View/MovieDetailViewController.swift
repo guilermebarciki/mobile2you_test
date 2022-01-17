@@ -39,14 +39,20 @@ class MovieDetailViewController: UIViewController {
         let header = StretchyTableHeaderView(frame: CGRect(x: 0, y: 0,
                                                            width: view.frame.size.width,
                                                            height: view.frame.size.width))
-        header.imageView.image = UIImage(named: "Image")
+        
+        header.imageView.donwloadImage(withUrl: "https://image.tmdb.org/t/p/original/6d5XOczc226jECq0LIX0siKtgHR.jpg")
+
         tableView.setHeader(header: header)
+        
     }
 }
 
 
 //MARK: - TableView DataSource e Delegate
 extension MovieDetailViewController: UITableViewDataSource, UITableViewDelegate {
+    
+    
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         switch indexPath.row {
@@ -63,7 +69,7 @@ extension MovieDetailViewController: UITableViewDataSource, UITableViewDelegate 
                 fatalError("no cell registered")
             }
             let similarMovie = viewModel.similarMovieDetailTransporter(indexPath)
-            cell.configure(similarMovie:similarMovie)
+            cell.configure(similarMovie: similarMovie, delegate: self)
             print("similar")
            return cell
          }
@@ -90,10 +96,13 @@ extension MovieDetailViewController: UIScrollViewDelegate {
 
 //MARK: - ViewModel Delegate
 extension MovieDetailViewController: MovieDetailViewModelDelegate {
+    
     func didLoad() {
         DispatchQueue.main.async { [weak self] in
             self?.tableView.reloadData()
         }
+        
+        
     }
     
     

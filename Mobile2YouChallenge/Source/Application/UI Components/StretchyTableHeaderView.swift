@@ -10,8 +10,8 @@ import UIKit
 
 // MARK: - Scretchy tableview header
 final class StretchyTableHeaderView: UIView {
-    public let imageView: UIImageView = {
-        let imageView = UIImageView()
+    public let imageView: ApiImageView = {
+        let imageView = ApiImageView()
         imageView.clipsToBounds = true
         imageView.contentMode = .scaleAspectFill
         return imageView

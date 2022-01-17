@@ -40,7 +40,9 @@ class MovieDetailViewModel: MovieDetailViewModelProtocol {
                         self.movieDetail.likes = apiResultDTO.vote_count?.divideBy1000() ?? 0
                         self.movieDetail.views = apiResultDTO.popularity ?? 0
                         self.delegate?.didLoad()
+                        print("api result \(apiResultDTO)")
                     case let .failure(error):
+                        print("api result \(error)")
                         break // TODO
                     }
                    
@@ -66,7 +68,7 @@ class MovieDetailViewModel: MovieDetailViewModelProtocol {
                 service.loadSimilarMovies(for: similarMoviesURL) { result in
                     switch result {
                     case let .success(apiResultDTO):
-                        var auxObj: SimilarMovieDetail = SimilarMovieDetail(title: "", year: "", genre: "", imageURL: URL(string: ""))
+                        var auxObj: SimilarMovieDetail = SimilarMovieDetail(title: "", year: "", genre: "", imageURL: "")
                         
                         //TODO do that in a better way
                         for movie in apiResultDTO.results {
@@ -75,13 +77,18 @@ class MovieDetailViewModel: MovieDetailViewModelProtocol {
                             auxObj.genre = "genre"
                             auxObj.year = movie.release_date?.getInitialCharacters(4) ?? "can't load"
                             print(movie.release_date)
-                            let baseURL = "https://image.tmdb.org/t/p/original/\(movie.backdrop_path)"
-                            auxObj.imageURL = URL(string: "\(baseURL)\(movie.backdrop_path)")
+                            let baseURL = "https://image.tmdb.org/t/p/original/\(movie.poster_path!)"
+                            auxObj.imageURL = baseURL
+                            
+                            if let url1 = movie.poster_path {
+                                print("URL IMAGEM \(baseURL)")
+                            }
                             print("gnre id: \(movie.genre_ids)") //TODO do a method to show genre by id
                             
                             
-                            self.similarMovies.append(auxObj)
                             
+                            self.similarMovies.append(auxObj)
+                           
                             
                         }
                         self.delegate?.didLoad()

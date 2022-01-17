@@ -21,6 +21,6 @@ struct MovieDetailDTO: Decodable {
     let popularity: Double?
     let release_date: String?
     let backdrop_path: String?
-    let genre_ids: [Int]
+//    let genre_ids: [Int]
     
 }

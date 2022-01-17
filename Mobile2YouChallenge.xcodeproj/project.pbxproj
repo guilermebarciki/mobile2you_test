@@ -112,7 +112,6 @@
 		B276010C2790936000221ECA /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
-				B27600F427906F7600221ECA /* SceneDelegate.swift */,
 				B276010E2790937600221ECA /* MovieDetail */,
 			);
 			path = Scenes;
@@ -169,6 +168,7 @@
 		B2760112279093A600221ECA /* SceneDelegate */ = {
 			isa = PBXGroup;
 			children = (
+				B27600F427906F7600221ECA /* SceneDelegate.swift */,
 			);
 			path = SceneDelegate;
 			sourceTree = "<group>";
