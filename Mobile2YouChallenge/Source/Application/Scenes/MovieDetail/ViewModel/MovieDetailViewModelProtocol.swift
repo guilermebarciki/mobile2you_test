@@ -15,7 +15,6 @@ protocol MovieDetailViewModelProtocol: AnyObject {
     func numberOfRows() -> Int
     func similarMovieDetailTransporter(_ indexPath: IndexPath) -> SimilarMovieDetail
     func movieDetailTransporter(_ indexPath: IndexPath) -> MovieDetail
-    func showMovies()
     
 }
 

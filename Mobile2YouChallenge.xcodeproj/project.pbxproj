@@ -91,6 +91,8 @@
 		B276010A2790934200221ECA /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				B27601112790939C00221ECA /* AppDelegate */,
+				B2760112279093A600221ECA /* SceneDelegate */,
 				B276010B2790934A00221ECA /* Application */,
 			);
 			path = Source;
@@ -102,8 +104,6 @@
 				B276012C2794E6C200221ECA /* Common */,
 				B27601232791B76B00221ECA /* UI Components */,
 				B276011B2790C24800221ECA /* Service */,
-				B2760112279093A600221ECA /* SceneDelegate */,
-				B27601112790939C00221ECA /* AppDelegate */,
 				B276010C2790936000221ECA /* Scenes */,
 			);
 			path = Application;
@@ -139,7 +139,6 @@
 		B276010F2790938700221ECA /* View */ = {
 			isa = PBXGroup;
 			children = (
-				B27601222791A8BA00221ECA /* New Group */,
 				B27601212791A8AE00221ECA /* HeaderCell */,
 				B276011E2790D6FB00221ECA /* MovieCell */,
 				B27601082790928F00221ECA /* MovieDetailViewController.swift */,
@@ -195,13 +194,6 @@
 				B27601262791C17600221ECA /* HeaderCell.swift */,
 			);
 			path = HeaderCell;
-			sourceTree = "<group>";
-		};
-		B27601222791A8BA00221ECA /* New Group */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "New Group";
 			sourceTree = "<group>";
 		};
 		B27601232791B76B00221ECA /* UI Components */ = {

@@ -128,9 +128,7 @@ class MovieDetailViewModel: MovieDetailViewModelProtocol {
         return movieDetail
     }
     
-    func showMovies() {
-        var a = 2
-    }
+   
     
     
 }
