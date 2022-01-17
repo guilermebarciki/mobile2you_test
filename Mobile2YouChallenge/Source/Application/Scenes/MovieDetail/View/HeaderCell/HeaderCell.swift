@@ -165,15 +165,10 @@ class HeaderCell: UITableViewCell {
     
     //MARK: - Internal API
     
-    public func configure(movieDetail: MovieDetail) {
-        titleLabel.text = movieDetail.title
-        
-        
-        
-        likesLabel.text = "\(movieDetail.likes ?? 0)K Likes"
-        
-        
-        viewsLabel.text = "\(movieDetail.views ?? 0)K Views"
+    public func configure(movieDetail: MovieDetail?) {
+        titleLabel.text = movieDetail?.title
+        likesLabel.text = "\(movieDetail?.likes ?? 0)K Likes"
+        viewsLabel.text = "\(movieDetail?.views ?? 0)K Views"
         
         
     }

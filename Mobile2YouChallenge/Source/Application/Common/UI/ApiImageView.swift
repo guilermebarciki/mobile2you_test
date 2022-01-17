@@ -11,49 +11,56 @@ import UIKit
 
 class ApiImageView: UIImageView {
     
-    let imageCache = NSCache<NSString, UIImage>()
-    var imageView: UIImageView?
-    var imageUrlString: String?
+    private let imageCache = NSCache<NSString, UIImage>()
+    private var imageUrlString: String?
+    
+    private var currentSession: URLSessionTask?
    
+    func cancel() {
+        currentSession?.cancel()
+    }
     
     func donwloadImage(withUrl urlString: String) {
-       
-        self.imageView?.translatesAutoresizingMaskIntoConstraints = false
         imageUrlString = urlString
         
         let url = URL(string: urlString)
-        self.image = nil
+        image = nil
         
         if let cachedImage = imageCache.object(forKey: NSString(string: urlString)) {
-            self.image = cachedImage
+            image = cachedImage
             return
         }
         
         guard let url = url else { return }
         
-        URLSession.shared.dataTask(with: url) { (data, _ , error) in
+        currentSession = URLSession.shared.dataTask(with: url) { [handle] (data, response , error) in
             
-            if error != nil {
-                guard let error = error else { return }
-                print(error)
+            guard let data = data else {
+                print("url", url)
+                handle(error)
                 return
             }
             
-            guard let data = data else { return }
-            
-            DispatchQueue.main.async { [weak self] in
+            DispatchQueue.main.async {
                 if let image = UIImage(data: data) {
-                    self?.imageCache.setObject(image, forKey: NSString(string: urlString))
-                    if self?.imageUrlString == urlString {
+                    self.imageCache.setObject(image, forKey: NSString(string: urlString))
+                    if self.imageUrlString == urlString {
                         print("image = image")
-                        self?.image = image
-
-                        
+                        self.image = image
                     }
                 } else {
                     print("delegate error")
                 }
             }
-        }.resume()
+        }
+        currentSession?.resume()
+    }
+    
+    private func handle(error: Error?) {
+        DispatchQueue.main.async {
+            self.image = nil
+        }
     }
 }
+
+

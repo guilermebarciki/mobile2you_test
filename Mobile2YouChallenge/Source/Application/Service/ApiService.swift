@@ -6,18 +6,18 @@
 //
 
 import Foundation
- // key: be5c32db82fc40f21fa05d770dc3bea2
+// key: be5c32db82fc40f21fa05d770dc3bea2
 
 typealias MovieDetailWraperCompletionResult = ((Result<MovieDetailDTO, ApiError>) -> Void)
 typealias SimilarMoviesWraperCompletionResult = ((Result<SimilarMoviesListDTO, ApiError>) -> Void)
 
 enum ApiError: Error {
     case apiError
-    case parsing
+    case parsing(Error)
 }
 
 protocol ApiServiceProtocol {
-    func loadMovieDetail(for url: URL, completion: @escaping MovieDetailWraperCompletionResult) 
+    func loadMovieDetail(for url: URL, completion: @escaping MovieDetailWraperCompletionResult)
     
     func loadSimilarMovies(for url: URL, completion: @escaping SimilarMoviesWraperCompletionResult)
 }
@@ -31,11 +31,14 @@ final class ApiService: ApiServiceProtocol {
                     completion(.failure(.apiError))
                     return
                 }
-                guard let response = try? JSONDecoder().decode(MovieDetailDTO.self, from: data) else {
-                    completion(.failure(.parsing))
-                    return
-                }
+                do {
+                    let decoder = JSONDecoder()
+                    decoder.keyDecodingStrategy = .convertFromSnakeCase
+                    let response = try decoder.decode(MovieDetailDTO.self, from: data)
                     completion(.success(response))
+                } catch let error {
+                    completion(.failure(.parsing(error)))
+                }
             }
         }.resume()
     }
@@ -47,11 +50,14 @@ final class ApiService: ApiServiceProtocol {
                     completion(.failure(.apiError))
                     return
                 }
-                guard let response = try? JSONDecoder().decode(SimilarMoviesListDTO.self, from: data) else {
-                    completion(.failure(.parsing))
-                    return
-                }
+                do {
+                    let decoder = JSONDecoder()
+                    decoder.keyDecodingStrategy = .convertFromSnakeCase
+                    let response = try decoder.decode(SimilarMoviesListDTO.self, from: data)
                     completion(.success(response))
+                } catch {
+                    completion(.failure(.parsing(error)))
+                }
             }
         }.resume()
     }

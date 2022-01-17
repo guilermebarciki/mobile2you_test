@@ -16,7 +16,7 @@ class MovieCell: UITableViewCell {
         image.backgroundColor = .red
         image.translatesAutoresizingMaskIntoConstraints  = false
 
-        image.imageView?.contentMode = .scaleAspectFill
+        
         
         return image
     }()

@@ -11,7 +11,7 @@ class MovieDetailViewModel: MovieDetailViewModelProtocol {
     
     private var similarMovies: [SimilarMovieDetail] = []
     
-    private var movieDetail : MovieDetail = MovieDetail(title: "", likes: 0, views: 0)
+    private var movieDetail : MovieDetail?
     private var currentUrl = URL(string: "https://api.themoviedb.org/3/movie/6977?api_key=be5c32db82fc40f21fa05d770dc3bea2&language=en-US")
     
     private var similarMoviesURL = URL(string: "https://api.themoviedb.org/3/movie/6977/similar?api_key=be5c32db82fc40f21fa05d770dc3bea2&language=en-US&page=1")
@@ -26,72 +26,45 @@ class MovieDetailViewModel: MovieDetailViewModelProtocol {
     }
     
     func loadMovieInfo() {
-        movieDetail = MovieDetail(title: "Onde os Fracos Não Tem Vez", likes: 1234, views: 122.3)
+        
         
         guard let currentUrl = currentUrl else {
             return
         }
                 service.loadMovieDetail(for: currentUrl) { result in
-                    print("resukt\(result)")
                     switch result {
                     case let .success(apiResultDTO):
-                        
-                        self.movieDetail.title = apiResultDTO.title ?? "" //TODO do that in a better way
-                        self.movieDetail.likes = apiResultDTO.vote_count?.divideBy1000() ?? 0
-                        self.movieDetail.views = apiResultDTO.popularity ?? 0
+                        self.movieDetail = MovieDetail(title: apiResultDTO.title,
+                                                       likes: apiResultDTO.voteCount?.divideBy1000() ?? 0,
+                                                       views: apiResultDTO.popularity ?? 0,
+                                                       posterURL: apiResultDTO.posterPath)
                         self.delegate?.didLoad()
                         print("api result \(apiResultDTO)")
                     case let .failure(error):
                         print("api result \(error)")
                         break // TODO
                     }
-                   
-        
                 }
-        
-        
-        
-        
-        
-        
-        
-        
         self.delegate?.didLoad()
     }
     
     func loadSimilarMovies() {
-        // REQUISITAR API
-        
         guard let similarMoviesURL = similarMoviesURL else {
             return
         }
                 service.loadSimilarMovies(for: similarMoviesURL) { result in
                     switch result {
                     case let .success(apiResultDTO):
-                        var auxObj: SimilarMovieDetail = SimilarMovieDetail(title: "", year: "", genre: "", imageURL: "")
-                        
-                        //TODO do that in a better way
-                        for movie in apiResultDTO.results {
-                            
-                            auxObj.title = movie.title
-                            auxObj.genre = "genre"
-                            auxObj.year = movie.release_date?.getInitialCharacters(4) ?? "can't load"
-                            print(movie.release_date)
-                            let baseURL = "https://image.tmdb.org/t/p/original/\(movie.poster_path!)"
-                            auxObj.imageURL = baseURL
-                            
-                            if let url1 = movie.poster_path {
-                                print("URL IMAGEM \(baseURL)")
-                            }
-                            print("gnre id: \(movie.genre_ids)") //TODO do a method to show genre by id
-                            
-                            
-                            
-                            self.similarMovies.append(auxObj)
-                           
-                            
-                        }
-                        self.delegate?.didLoad()
+                        self.similarMovies = apiResultDTO.results.compactMap {
+                        guard let path = $0.posterPath
+                        else { return nil }
+                        return .init(
+                            title: $0.title,
+                            year: $0.releaseDate?.getInitialCharacters(4) ?? "TODO handle error",
+                            genre: "// TODO",
+                            imageURL: "https://image.tmdb.org/t/p/original/\(path)")
+                    }
+                    self.delegate?.didLoad()
                         
                     case let .failure(error):
                         print("FAIL to parse")
@@ -123,7 +96,7 @@ class MovieDetailViewModel: MovieDetailViewModelProtocol {
         similarMovies[indexPath.row - 1] // TODO fix that
     }
     
-    func movieDetailTransporter(_ indexPath: IndexPath) -> MovieDetail {
+    func movieDetailTransporter(_ indexPath: IndexPath) -> MovieDetail? {
         
         return movieDetail
     }

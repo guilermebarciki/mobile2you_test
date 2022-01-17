@@ -11,7 +11,7 @@ extension String {
     func getInitialCharacters(_ howManyCharacters: Int) -> String {
         
         if self.count < howManyCharacters {
-            fatalError("string invalid")
+            NSLog("string invalid", self)
             return self
         }
         

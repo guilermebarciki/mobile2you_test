@@ -9,6 +9,6 @@ import Foundation
 
 extension Double {
     func divideBy1000() -> Double{
-        return Double((Int(self) % 100) / 10)
+        Double((Int(self) % 100) / 10)
     }
 }

@@ -8,8 +8,8 @@
 import Foundation
 import UIKit
 
-class GradientView: UIView {
-    override open class var layerClass: AnyClass {
+final class GradientView: UIView {
+    override public class var layerClass: AnyClass {
         return CAGradientLayer.classForCoder()
     }
 

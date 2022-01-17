@@ -20,8 +20,8 @@ struct SimilarMoviesListDTO: Decodable {
 
 struct SimilarMovieDTO: Decodable {
     let title: String?
-    let release_date: String?
-    let poster_path: String?
-    let genre_ids: [Int]
+    let releaseDate: String?
+    let posterPath: String?
+    let genreIds: [Int]
 }
 

@@ -8,19 +8,18 @@
 import Foundation
 
 struct MovieDetail {
-    var title: String?
-    var likes: Double?
-    var views: Double?
-    
+    let title: String?
+    let likes: Double?
+    let views: Double?
+    let posterURL: String?
 }
 
 
 struct MovieDetailDTO: Decodable {
     let title: String?
-    let vote_count: Double?
+    let voteCount: Double?
     let popularity: Double?
-    let release_date: String?
-    let backdrop_path: String?
-//    let genre_ids: [Int]
-    
+    let releaseDate: String?
+    let posterPath: String?
 }
+
