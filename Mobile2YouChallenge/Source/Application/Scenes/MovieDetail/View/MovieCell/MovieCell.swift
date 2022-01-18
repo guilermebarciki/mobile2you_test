@@ -121,13 +121,15 @@ class MovieCell: UITableViewCell {
         year.text = similarMovie.year
         genre.text = similarMovie.genre
         
-        if canLoad {
+        if canLoad  {
             if let url = similarMovie.imageURL {
-                movieImage.donwloadImage(withUrl: url)
+                movieImage.donwloadImage(withUrl: url) //TODO fix reconfigure image issue
                 canLoad = false
             }
             else {
                 print("imageUrl invalid") }
         }
+        
     }
 }
+

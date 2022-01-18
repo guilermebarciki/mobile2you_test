@@ -23,12 +23,20 @@ final class MovieService {
         movieUrl
     }
     
+    func getMovieUrl(byMovieId: Int) -> URL?{
+       URL(string: "https://api.themoviedb.org/3/movie/\(movieId)?api_key=\(apiKey)&language=en-US")
+    }
+    
     func getSimilarMoviesURL() -> URL? {
         similarMoviesURL
     }
     
     func getMovieImageURL(path: String) -> String {
         "https://image.tmdb.org/t/p/original\(path)"
+    }
+    
+    func getMoviePosterUrl() -> String {
+        "https://image.tmdb.org/t/p/original/6d5XOczc226jECq0LIX0siKtgHR.jpg"
     }
     
     

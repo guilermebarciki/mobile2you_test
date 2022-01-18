@@ -13,6 +13,7 @@ class MovieDetailViewController: UIViewController {
     
     private lazy var viewModel = MovieDetailViewModel(delegate: self)
     private lazy var tableView = MovieDetailView()
+    private let  movieService = MovieService()
     
     override func loadView() {
             view = tableView
@@ -31,8 +32,8 @@ class MovieDetailViewController: UIViewController {
                                                            width: view.frame.size.width,
                                                            height: view.frame.size.width))
         
-        header.imageView.donwloadImage(withUrl: "https://image.tmdb.org/t/p/original/6d5XOczc226jECq0LIX0siKtgHR.jpg")
-        print("url image controller: \(viewModel.movieDetail?.posterURL)")
+        header.imageView.donwloadImage(withUrl: movieService.getMoviePosterUrl())
+        
 
         tableView.setHeader(header: header)
         
@@ -49,7 +50,8 @@ extension MovieDetailViewController: UITableViewDataSource, UITableViewDelegate 
          case 0:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "HeaderCell") as? HeaderCell else {
                 fatalError("no cell registered")
-            }
+            }//TODO dequeue using UITableView extension method
+            
             let movieDetail = viewModel.movieDetailTransporter(indexPath)
            cell.configure(movieDetail: movieDetail)
            return cell
@@ -57,7 +59,7 @@ extension MovieDetailViewController: UITableViewDataSource, UITableViewDelegate 
          default:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "MovieCell") as? MovieCell else {
                 fatalError("no cell registered")
-            }
+            }//TODO dequeue using UITableView extension method
             let similarMovie = viewModel.similarMovieDetailTransporter(indexPath)
             cell.configure(similarMovie: similarMovie, delegate: self)
            return cell
@@ -87,4 +89,7 @@ extension MovieDetailViewController: MovieDetailViewModelDelegate {
         }
     }    
 }
+
+
+
 

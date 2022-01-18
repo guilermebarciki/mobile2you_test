@@ -16,11 +16,8 @@ final class MovieDetailView: UIView {
     
      var tableView: UITableView = {
         let tableView = UITableView()
-        tableView.register(MovieCell.self, forCellReuseIdentifier: "MovieCell")
-        tableView.register(HeaderCell.self, forCellReuseIdentifier: "HeaderCell")
-//         tableView.register(MovieCell.self)
-//         tableView.register(HeaderCell.self)
-         
+         tableView.register(MovieCell.self)
+         tableView.register(HeaderCell.self)
          tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
      }()
@@ -79,6 +76,11 @@ final class MovieDetailView: UIView {
     func reloadData() {
         tableView.reloadData()
     }
+    
+    func dequeue<T: UITableViewCell>(_ type: T.Type, at indexPath: IndexPath) -> T{
+        let cell = tableView.dequeue(T.self, at: indexPath)
+    return cell
+  }
 }
 
 

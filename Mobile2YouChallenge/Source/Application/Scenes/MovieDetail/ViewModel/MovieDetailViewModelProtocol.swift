@@ -14,7 +14,8 @@ protocol MovieDetailViewModelProtocol: AnyObject {
     func numberOfSections() -> Int
     func numberOfRows() -> Int
     func similarMovieDetailTransporter(_ indexPath: IndexPath) -> SimilarMovieDetail
-    func movieDetailTransporter(_ indexPath: IndexPath) -> MovieDetail? 
+    func movieDetailTransporter(_ indexPath: IndexPath) -> MovieDetail?
+    func getMovieGenreBy(movieId: Int, completion: @escaping (String?) -> Void)
 }
 
 protocol MovieDetailViewModelDelegate: AnyObject {

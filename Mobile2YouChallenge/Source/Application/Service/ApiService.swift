@@ -17,48 +17,33 @@ enum ApiError: Error {
 }
 
 protocol ApiServiceProtocol {
-    func loadMovieDetail(for url: URL, completion: @escaping MovieDetailWraperCompletionResult)
     
-    func loadSimilarMovies(for url: URL, completion: @escaping SimilarMoviesWraperCompletionResult)
+    
+    func request<T>(for url: URL, completion: @escaping (Result<T, ApiError>) -> Void) where T: Decodable
 }
 
+
+
 final class ApiService: ApiServiceProtocol {
-    func loadMovieDetail(for url: URL, completion: @escaping MovieDetailWraperCompletionResult)
-    {
-        URLSession.shared.dataTask(with: url) { data, _, error in
-            DispatchQueue.main.async {
-                guard let data = data else {
-                    completion(.failure(.apiError))
-                    return
-                }
-                do {
-                    let decoder = JSONDecoder()
-                    decoder.keyDecodingStrategy = .convertFromSnakeCase
-                    let response = try decoder.decode(MovieDetailDTO.self, from: data)
-                    completion(.success(response))
-                } catch let error {
-                    completion(.failure(.parsing(error)))
-                }
-            }
-        }.resume()
-    }
     
-    func loadSimilarMovies(for url: URL, completion: @escaping SimilarMoviesWraperCompletionResult) {
-        URLSession.shared.dataTask(with: url) { data, _, error in
-            DispatchQueue.main.async {
-                guard let data = data else {
-                    completion(.failure(.apiError))
-                    return
-                }
-                do {
-                    let decoder = JSONDecoder()
-                    decoder.keyDecodingStrategy = .convertFromSnakeCase
-                    let response = try decoder.decode(SimilarMoviesListDTO.self, from: data)
-                    completion(.success(response))
-                } catch {
-                    completion(.failure(.parsing(error)))
-                }
-            }
-        }.resume()
-    }
+    func request<T>(for url: URL, completion: @escaping (Result<T, ApiError>) -> Void) where T: Decodable {
+       URLSession.shared.dataTask(with: url) { data, _, error in
+           DispatchQueue.main.async {
+               guard let data = data else {
+                   completion(.failure(.apiError))
+                   return
+               }
+               do {
+                   let decoder = JSONDecoder()
+                   decoder.keyDecodingStrategy = .convertFromSnakeCase
+                   let response = try decoder.decode(T.self, from: data)
+                   completion(.success(response))
+               } catch let error {
+                   completion(.failure(.parsing(error)))
+               }
+           }
+       }.resume()
+   }
+    
+    
 }

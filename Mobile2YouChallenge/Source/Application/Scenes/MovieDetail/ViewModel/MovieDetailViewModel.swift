@@ -8,32 +8,34 @@
 import Foundation
 
 class MovieDetailViewModel: MovieDetailViewModelProtocol {
-    
+
+    private let currentMovieId = 6977
     private var similarMovies: [SimilarMovieDetail] = []
      var movieDetail : MovieDetail?
     weak var delegate: MovieDetailViewModelDelegate?
     
-    private let service: ApiServiceProtocol = ApiService() // TODO make testable
+    private let service: ApiServiceProtocol = ApiService()
     private let movieService = MovieService()
     init(delegate: MovieDetailViewModelDelegate?) {
         self.delegate = delegate
     }
     
     func loadMovieInfo() {
-        
-        
-        guard let currentUrl = movieService.getMovieUrl() else {
+        guard let currentUrl = movieService.getMovieUrl(byMovieId: currentMovieId) else {
             return
         }
-        service.loadMovieDetail(for: currentUrl) { [weak self] result in
+        service.request(for: currentUrl) { [weak self] (result: Result<MovieDetailDTO, ApiError> ) in
             switch result {
             case let .success(apiResultDTO):
-                self?.movieDetail = MovieDetail(title: apiResultDTO.title,
-                                               likes: apiResultDTO.voteCount?.divideBy1000() ?? 0,
-                                               views: apiResultDTO.popularity ?? 0,
+                self?.movieDetail = MovieDetail(title: apiResultDTO
+                                                    .title,
+                                               likes: apiResultDTO.voteCount?
+                                                    .divideBy1000() ?? 0,
+                                               views: apiResultDTO
+                                                    .popularity ?? 0,
                                                posterURL: self?.movieService
                                                 .getMovieImageURL(path: apiResultDTO.posterPath ?? ""))
-                
+                              
                 self?.delegate?.didLoad()
             case let .failure(error):
                 print("api result \(error)")
@@ -44,28 +46,49 @@ class MovieDetailViewModel: MovieDetailViewModelProtocol {
     }
     
     func loadSimilarMovies() {
+    
         guard let similarMoviesURL = movieService.getSimilarMoviesURL() else {
             return
         }
-        service.loadSimilarMovies(for: similarMoviesURL) { [weak self] result in
+        
+        service.request(for: similarMoviesURL) { [weak self] (result: Result<SimilarMoviesListDTO, ApiError> ) in
             switch result {
             case let .success(apiResultDTO):
                 self?.similarMovies = apiResultDTO.results.compactMap {
                     guard let path = $0.posterPath
                     else { return nil }
-                    return .init(
+                    
+                    var movie = SimilarMovieDetail(
                         title: $0.title,
                         year: $0.releaseDate?.getInitialCharacters(4) ?? "TODO handle error",
-                        genre: "// TODO",
-                        imageURL: self?.movieService.getMovieImageURL(path: path))
+                        genre: "not working",
+                        imageURL: self?.movieService.getMovieImageURL(path: path),
+                        movieId: $0.id)
+                    
+    
+                    return movie
+                    
                 }
-                self?.delegate?.didLoad()
                 
+                //TODO set genre in a better way
+                if let similarMovies = self?.similarMovies {
+
+                    
+                    for i in 0..<(self?.similarMovies.count ?? 0) {
+                        self?.getMovieGenreBy(movieId: self?.similarMovies[i].movieId ?? 0, completion: { genre in
+                            self?.similarMovies[i].genre = genre ?? "not working"
+                        })
+                    }
+                    
+                }
+                
+                
+                
+                self?.delegate?.didLoad()
             case let .failure(error):
                 print("FAIL to parse")
-                break // TODO
+                break
             }
-            
         }
         self.delegate?.didLoad()
     }
@@ -75,15 +98,35 @@ class MovieDetailViewModel: MovieDetailViewModelProtocol {
     }
     
     func numberOfRows() -> Int {
-        similarMovies.count + 1 //TODO fix that
+        similarMovies.count + 1
     }
     
     func similarMovieDetailTransporter(_ indexPath: IndexPath) -> SimilarMovieDetail {
-        similarMovies[indexPath.row - 1] // TODO fix that
+        similarMovies[indexPath.row - 1]
     }
     
     func movieDetailTransporter(_ indexPath: IndexPath) -> MovieDetail? {
         
         return movieDetail
+    }
+    
+    func getMovieGenreBy(movieId: Int, completion: @escaping (String?) -> Void) {
+        
+        guard let currentUrl = movieService.getMovieUrl(byMovieId: movieId) else {
+            return
+        }
+        service.request(for: currentUrl) { [weak self] (result: Result<MovieGenreListDto, ApiError> ) in
+            switch result {
+            case let .success(apiResultDTO):
+                let genreString = "\(apiResultDTO.genres[0].name ?? "") \(apiResultDTO.genres[1].name ?? "")"
+                completion(genreString)
+                
+            case let .failure(error):
+                print(" \(error)")
+                break
+            }
+        }
+       return
+    
     }
 }

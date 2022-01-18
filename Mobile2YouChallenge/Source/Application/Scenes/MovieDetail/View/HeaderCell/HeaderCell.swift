@@ -162,7 +162,7 @@ class HeaderCell: UITableViewCell {
     public func configure(movieDetail: MovieDetail?) {
         titleLabel.text = movieDetail?.title
         likesLabel.text = "\(movieDetail?.likes ?? 0)K Likes"
-        viewsLabel.text = "\(movieDetail?.views ?? 0)K Views"
+        viewsLabel.text = "\(((movieDetail?.views ?? 0) * 10 ).rounded() / 10)K Views"
     }
 }
 

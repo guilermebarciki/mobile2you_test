@@ -8,10 +8,19 @@
 import Foundation
 
 struct SimilarMovieDetail {
-    var title: String?
-    var year: String?
+    let title: String?
+    let year: String?
     var genre: String?
-    var imageURL: String?
+    let imageURL: String?
+    let movieId: Int?
+}
+
+struct MovieGenreListDto: Decodable {
+    let genres: [MovieGenreDto]
+}
+
+struct MovieGenreDto: Decodable {
+    let name: String?
 }
 
 struct SimilarMoviesListDTO: Decodable {
@@ -23,5 +32,6 @@ struct SimilarMovieDTO: Decodable {
     let releaseDate: String?
     let posterPath: String?
     let genreIds: [Int]
+    let id: Int?
 }
 
