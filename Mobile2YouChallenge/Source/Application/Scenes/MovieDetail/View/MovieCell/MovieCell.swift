@@ -42,7 +42,7 @@ class MovieCell: UITableViewCell {
     {
         let line = UIImageView()
         line.translatesAutoresizingMaskIntoConstraints = false
-        line.backgroundColor = .systemGray
+        line.backgroundColor = UIColor(named: "divisorLine")
         return line
     }()
     
