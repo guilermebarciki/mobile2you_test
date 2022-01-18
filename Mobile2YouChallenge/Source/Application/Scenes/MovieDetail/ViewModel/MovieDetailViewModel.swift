@@ -25,16 +25,16 @@ class MovieDetailViewModel: MovieDetailViewModelProtocol {
         guard let currentUrl = movieService.getMovieUrl() else {
             return
         }
-        service.loadMovieDetail(for: currentUrl) { result in
+        service.loadMovieDetail(for: currentUrl) { [weak self] result in
             switch result {
             case let .success(apiResultDTO):
-                self.movieDetail = MovieDetail(title: apiResultDTO.title,
+                self?.movieDetail = MovieDetail(title: apiResultDTO.title,
                                                likes: apiResultDTO.voteCount?.divideBy1000() ?? 0,
                                                views: apiResultDTO.popularity ?? 0,
-                                               posterURL: self.movieService
+                                               posterURL: self?.movieService
                                                 .getMovieImageURL(path: apiResultDTO.posterPath ?? ""))
                 
-                self.delegate?.didLoad()
+                self?.delegate?.didLoad()
             case let .failure(error):
                 print("api result \(error)")
                 break // TODO
@@ -47,19 +47,19 @@ class MovieDetailViewModel: MovieDetailViewModelProtocol {
         guard let similarMoviesURL = movieService.getSimilarMoviesURL() else {
             return
         }
-        service.loadSimilarMovies(for: similarMoviesURL) { result in
+        service.loadSimilarMovies(for: similarMoviesURL) { [weak self] result in
             switch result {
             case let .success(apiResultDTO):
-                self.similarMovies = apiResultDTO.results.compactMap {
+                self?.similarMovies = apiResultDTO.results.compactMap {
                     guard let path = $0.posterPath
                     else { return nil }
                     return .init(
                         title: $0.title,
                         year: $0.releaseDate?.getInitialCharacters(4) ?? "TODO handle error",
                         genre: "// TODO",
-                        imageURL: self.movieService.getMovieImageURL(path: path))
+                        imageURL: self?.movieService.getMovieImageURL(path: path))
                 }
-                self.delegate?.didLoad()
+                self?.delegate?.didLoad()
                 
             case let .failure(error):
                 print("FAIL to parse")

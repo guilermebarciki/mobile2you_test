@@ -22,7 +22,4 @@ func register<T: UITableViewCell>(_ : T.Type) {
     print("identifier", identifier)
     register(UINib(nibName: identifier, bundle: nil), forCellReuseIdentifier: identifier)
 }
-    
-    
-
 }
