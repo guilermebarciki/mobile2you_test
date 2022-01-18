@@ -67,8 +67,6 @@ class MovieDetailViewModel: MovieDetailViewModelProtocol {
                         imageURL: self?.movieService.getMovieImageURL(path: path),
                         movieId: $0.id,
                         postImage: posterImage)
-                    
-                    
                     return movie
                 }
  
@@ -89,10 +87,8 @@ class MovieDetailViewModel: MovieDetailViewModelProtocol {
             }
         }
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
-            self.delegate?.didLoad()
-            print("didload 3")
-        }
+        
+        
         
     }
     
@@ -123,7 +119,7 @@ class MovieDetailViewModel: MovieDetailViewModelProtocol {
             case let .success(apiResultDTO):
                 let genreString = "\(apiResultDTO.genres[0].name ?? "") \(apiResultDTO.genres[1].name ?? "")"
                 completion(genreString)
-                
+                self?.delegate?.didLoad()
             case let .failure(error):
                 print(" \(error)")
                 break
