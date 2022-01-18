@@ -13,6 +13,7 @@ struct SimilarMovieDetail {
     var genre: String?
     let imageURL: String?
     let movieId: Int?
+    let postImage: ApiImageView?
 }
 
 struct MovieGenreListDto: Decodable {

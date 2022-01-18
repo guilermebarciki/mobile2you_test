@@ -46,7 +46,7 @@ class MovieCell: UITableViewCell {
         return line
     }()
     
-    var canLoad: Bool = true
+    
     
     /// Init
     
@@ -110,7 +110,7 @@ class MovieCell: UITableViewCell {
     override func prepareForReuse() {
         movieImage.cancel()
         movieImage.image = nil
-        canLoad = true
+        
     }
     
     //MARK: - Internal API
@@ -120,15 +120,10 @@ class MovieCell: UITableViewCell {
         title.text = similarMovie.title
         year.text = similarMovie.year
         genre.text = similarMovie.genre
+        movieImage.image = similarMovie.postImage?.image
         
-        if canLoad  {
-            if let url = similarMovie.imageURL {
-                movieImage.donwloadImage(withUrl: url) //TODO fix reconfigure image issue
-                canLoad = false
-            }
-            else {
-                print("imageUrl invalid") }
-        }
+        
+        
         
     }
 }

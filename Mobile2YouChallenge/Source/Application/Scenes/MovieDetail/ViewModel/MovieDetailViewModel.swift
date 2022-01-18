@@ -58,22 +58,22 @@ class MovieDetailViewModel: MovieDetailViewModelProtocol {
                     guard let path = $0.posterPath
                     else { return nil }
                     
+                    let posterImage = ApiImageView()
+                    posterImage.donwloadImage(withUrl: self?.movieService.getMovieImageURL(path: path) ?? "")
                     var movie = SimilarMovieDetail(
                         title: $0.title,
                         year: $0.releaseDate?.getInitialCharacters(4) ?? "TODO handle error",
-                        genre: "not working",
+                        genre: "",
                         imageURL: self?.movieService.getMovieImageURL(path: path),
-                        movieId: $0.id)
+                        movieId: $0.id,
+                        postImage: posterImage)
                     
-    
+                    
                     return movie
-                    
                 }
-                
+ 
                 //TODO set genre in a better way
                 if let similarMovies = self?.similarMovies {
-
-                    
                     for i in 0..<(self?.similarMovies.count ?? 0) {
                         self?.getMovieGenreBy(movieId: self?.similarMovies[i].movieId ?? 0, completion: { genre in
                             self?.similarMovies[i].genre = genre ?? "not working"
@@ -81,16 +81,19 @@ class MovieDetailViewModel: MovieDetailViewModelProtocol {
                     }
                     
                 }
-                
-                
-                
                 self?.delegate?.didLoad()
+                
             case let .failure(error):
                 print("FAIL to parse")
                 break
             }
         }
-        self.delegate?.didLoad()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+            self.delegate?.didLoad()
+            print("didload 3")
+        }
+        
     }
     
     func numberOfSections() -> Int {
